@@ -23,6 +23,7 @@ public class Controller {
     @PostMapping("/room")
     public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException {
 
+
         model.addAttribute("roomName",user.getRoomname());
         model.addAttribute("username",user.getUsername());
 

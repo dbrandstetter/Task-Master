@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
-    private List<List<String>> taskData = new ArrayList<>();
+    private static List<List<String>> taskData = new ArrayList<>();
 
     public static List<List<String>> getHomeworks(UserHandler user) throws IOException{
         Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
