@@ -21,8 +21,8 @@ public class Controller {
         return "SignUp";
     }
 
-    @PostMapping("/")
-    public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+    @PostMapping("/room")
+    public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
         if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
             model.addAttribute("roomName", user.getRoomname());
             model.addAttribute("username", user.getUsername());
@@ -32,5 +32,13 @@ public class Controller {
             model.addAttribute("wrongpwd", "That is the worng pwd!");
             return "Login";
         }
+    }
+
+    @PostMapping("/rooms")
+    public String rooms(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+
+        //TODO erzeugt User mit Raum
+
+        return room(user,model);
     }
 }
