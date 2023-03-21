@@ -15,6 +15,7 @@ public class PasswordEncryptor {
 
             sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 
+
         }
         return sb.toString();
 
