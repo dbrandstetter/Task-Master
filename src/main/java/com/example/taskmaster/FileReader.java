@@ -28,11 +28,10 @@ public class FileReader {
     }
 
     public static String[] getFirstRow(UserHandler user) throws IOException {
-        BufferedReader reader = new BufferedReader(new java.io.FileReader("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"));
-        String firstLine = reader.readLine();
-        reader.close();
-        return firstLine.split(";");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
+        try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
+            return reader.readLine().split(";");
+        }
     }
-
 }

@@ -21,10 +21,10 @@ public class Controller {
     public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException {
 
 
-        model.addAttribute("roomName",user.getRoomname());
-        model.addAttribute("username",user.getUsername());
+        model.addAttribute("roomName", user.getRoomname());
+        model.addAttribute("username", user.getUsername());
 
-        model.addAttribute("information",FileReader.getTasks(user));
+        model.addAttribute("information", FileReader.getTasks(user));
 
         return "Structure";
     }
