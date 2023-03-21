@@ -12,9 +12,7 @@ public class Controller {
 
     @GetMapping("/login")
     public String index() {
-
         return "Login";
-
     }
 
     @PostMapping("/room")
