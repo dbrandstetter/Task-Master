@@ -37,7 +37,7 @@
 
 <h1>SignUp to TaskMaster!</h1>
 
-<form action="/rooms" method="get">
+<form action="/rooms" method="post">
 
     <section class="SignUpField">
 
@@ -49,6 +49,12 @@
 
         <label for="password">Password:</label>
         <input name="password" id="password" type="password" required>
+
+        <label for="permission">Permission</label>
+        <select name="permission" id="permission">
+            <option>teacher</option>
+            <option>student</option>
+        </select>
 
         <button type="submit" style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">SignUp</button>
 

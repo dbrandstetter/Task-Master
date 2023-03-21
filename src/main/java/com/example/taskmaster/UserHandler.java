@@ -9,6 +9,7 @@ public class UserHandler {
     private String roomname;
     private String username;
     private String password;
+    private String permission;
 
     public void setRoomname(String roomname) {
 
@@ -46,24 +47,21 @@ public class UserHandler {
 
     }
 
-    public String getPermission() throws IOException {
+    public String getPermission(){
 
-        BufferedReader reader = new BufferedReader(new FileReader("rooms/" + roomname + "/" + username + ".txt"));
-        String firstLine = reader.readLine();
-        reader.close();
-        return firstLine.split(";")[1];
+        return permission;
+
+    }
+
+    public void setPermission(String permission) {
+
+        this.permission = permission;
 
     }
 
     @Override
     public String toString() {
-
-        try {
-            return "[" + roomname + "] [" + username + "] [" + password + "] [" + getPermission() + "]";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+            return "[" + roomname + "] [" + username + "] [" + password + "] [" + permission + "]";
     }
 
 }
