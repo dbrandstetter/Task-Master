@@ -12,8 +12,13 @@ import java.security.NoSuchAlgorithmException;
 public class Controller {
 
     @GetMapping("/login")
-    public String index() {
+    public String login() {
         return "Login";
+    }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "SignUp";
     }
 
     @PostMapping("/")

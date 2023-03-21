@@ -37,24 +37,28 @@
 
 <h1>SignUp to TaskMaster!</h1>
 
-<form action="room" method="post">
+<form action="/login" method="get">
 
     <section class="SignUpField">
 
         <label for="roomname">Room-Name:</label>
-        <input name="roomname" id="roomname" type="text">
+        <input name="roomname" id="roomname" type="text" required>
 
         <label for="username">Username:</label>
-        <input name="username" id="username" type="text">
+        <input name="username" id="username" type="text" required>
 
         <label for="password">Password:</label>
-        <input name="password" id="password" type="password">
+        <input name="password" id="password" type="password" required>
 
-        <button type="submit" style="border-radius: 5px;border-width: 0;background-color: #8ba4a4">Login</button>
+        <button type="submit" style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">SignUp</button>
 
     </section>
 
-    <p style="color: red" th:text="${wrongpwd}"></p>
+</form>
+
+<form action="/login" method="get">
+
+    <button type="submit" style="border-width: 0px;background-color: white;margin-top: 10px">Already registered?</button>
 
 </form>
 
