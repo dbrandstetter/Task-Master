@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -15,17 +16,20 @@ public class Controller {
         return "Login";
     }
 
-    @PostMapping("/room")
-    public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException {
-        model.addAttribute("roomName",user.getRoomname());
-        model.addAttribute("username",user.getUsername());
+    @PostMapping("/")
+    public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
 
-        model.addAttribute("tasks",FileReader.getTasks(user));
+        if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
+            model.addAttribute("roomName", user.getRoomname());
+            model.addAttribute("username", user.getUsername());
 
-        if (user.getPassword().equals(FileReader.getFirstRow(user)[0])) {
+            if (FileReader.getTasks(user).equals(model.getAttribute("tasks"))) {
+
+            }else model.addAttribute("tasks", FileReader.getTasks(user));;
+
             return "Structure";
         } else {
-            model.addAttribute("information","That is the worng pwd!");
+            model.addAttribute("wrongpwd", "That is the worng pwd!");
             return "Login";
         }
     }
