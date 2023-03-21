@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="htpps://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${roomName}"></title>
+
+    <style>
+
+        div {
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+    </style>
+</head>
+<body>
+
+<p>Welcome back <span th:text="${username}"></span>!</p>
+
+
+<div>
+    <tr th:each="homework: ${information}">
+
+        <div  style="display: flex; flex-flow: row nowrap">
+
+            <td th:each="Info:${homework}">
+
+                <div th:text="${Info}" style="padding-left: 10px"></div>
+
+            </td>
+
+        </div>
+
+    </tr>
+</div>
+
+
+</body>
+</html>

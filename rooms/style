@@ -1,0 +1,64 @@
+<!--font-family: 'Sriracha', cursive;-->
+    <style>
+        * {
+
+            background-color: #393d44;
+            color: #276cce;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+        }
+
+        html {
+            border-left: 30px #3c5f91 solid;
+            border-right: 30px #3c5f91 solid;
+            margin: 0;
+            margin-top: 60px;
+            height: 100%;
+        }
+
+        h1 {
+            font-size: 50px;
+        }
+
+        h2 {
+            font-size: 40px;
+        }
+
+        button {
+            background-color: white;
+            border: solid #3c5f91 3px;
+            border-radius: 5px;
+        }
+
+        button:focus {
+            border-color: white;
+        }
+
+        button:hover {
+            background-color: #393d44;
+        }
+
+        .loginField {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stripe {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1C2D44;
+            height: 60px;
+            width: 100%;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 40px;
+        }
+    </style>
