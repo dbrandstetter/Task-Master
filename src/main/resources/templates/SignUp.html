@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="htpps://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@100&display=swap');
+        * {
+            color: #1e2f2f;
+            font-family: 'Noto Sans Gujarati', sans-serif;
+        }
+        section {
+            display: flex;
+            flex-flow: column nowrap;
+            width: 25%;
+        }
+        input {
+            background-color: #8ba4a4;
+            border-width: 0px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+
+    <title>SignUp - TaskMaster</title>
+</head>
+<body>
+
+<div class="stripe"><p>Welcome to TaskMaster, your Homework-Organizer.</p></div>
+
+<h1>SignUp to TaskMaster!</h1>
+
+<form action="room" method="post">
+
+    <section class="SignUpField">
+
+        <label for="roomname">Room-Name:</label>
+        <input name="roomname" id="roomname" type="text">
+
+        <label for="username">Username:</label>
+        <input name="username" id="username" type="text">
+
+        <label for="password">Password:</label>
+        <input name="password" id="password" type="password">
+
+        <button type="submit" style="border-radius: 5px;border-width: 0px;background-color: #8ba4a4">Login</button>
+
+    </section>
+
+    <p style="color: red" th:text="${wrongpwd}"></p>
+
+</form>
+
+</body>
+</html>
