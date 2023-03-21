@@ -18,12 +18,13 @@ public class Controller {
 
     @PostMapping("/")
     public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-
+        System.out.println((FileReader.getTasks(user).toString().replace("[","").replace("]","")));
+        System.out.println(model.getAttribute("tasks"));
         if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
             model.addAttribute("roomName", user.getRoomname());
             model.addAttribute("username", user.getUsername());
 
-            if (FileReader.getTasks(user).equals(model.getAttribute("tasks"))) {
+            if ((FileReader.getTasks(user).toString().replace("[","").replace("]","")).equals(model.getAttribute("tasks"))) {
 
             }else model.addAttribute("tasks", FileReader.getTasks(user));;
 

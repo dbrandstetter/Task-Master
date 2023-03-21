@@ -37,6 +37,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Title: '" + title + ", Deadline: " + deadline + ", Info: '" + info;
+        return title + deadline + info;
     }
 }
