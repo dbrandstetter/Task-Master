@@ -37,10 +37,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "title='" + title + '\'' +
-                ", deadline='" + deadline + '\'' +
-                ", info='" + info + '\'' +
-                '}';
+        return "Task{" + "title='" + title + '\'' + ", deadline='" + deadline + '\'' + ", info='" + info + '\'' + '}';
     }
 }

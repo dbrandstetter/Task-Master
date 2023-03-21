@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -27,7 +24,7 @@ public class Controller {
         model.addAttribute("roomName",user.getRoomname());
         model.addAttribute("username",user.getUsername());
 
-        model.addAttribute("information",FileReader.getHomeworks(user));
+        model.addAttribute("information",FileReader.getTasks(user));
 
         return "Structure";
     }

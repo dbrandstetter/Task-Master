@@ -9,25 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
-    private static List<List<String>> taskData = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
-    public static List<List<String>> getHomeworks(UserHandler user) throws IOException{
+    public static List<Task> getTasks(UserHandler user) throws IOException {
         Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
-        try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)){
-            String line = in.readLine();
+        try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
+            String line;
+            in.readLine();
 
             while ((line = in.readLine()) != null) {
-                taskData.add(List.of(line.split(";")[0],line.split(";")[1],line.split(";")[2]));
+                // Add a new Task to tasks that is filled with the title, deadline and info stored in the user file
+                tasks.add(new Task(line, in.readLine(), in.readLine()));
             }
         }
 
-        return taskData;
+        return tasks;
     }
 
-    public String[] getFirstRow(UserHandler user) throws IOException {
-
-        BufferedReader reader = new BufferedReader(new java.io.FileReader("rooms/"+user.getRoomname()+"/"+user.getUsername()+".txt"));
+    public static String[] getFirstRow(UserHandler user) throws IOException {
+        BufferedReader reader = new BufferedReader(new java.io.FileReader("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"));
         String firstLine = reader.readLine();
         reader.close();
         return firstLine.split(";");
