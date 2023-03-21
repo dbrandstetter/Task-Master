@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="htpps://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -48,6 +48,8 @@
         <button type="submit" style="border-radius: 5px;border-width: 0px;background-color: #8ba4a4">Login</button>
 
     </section>
+
+    <p style="color: red" th:text="${wrongpwd}"></p>
 
 </form>
 
