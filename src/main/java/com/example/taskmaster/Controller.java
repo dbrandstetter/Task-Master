@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -30,13 +31,13 @@ public class Controller {
 
     @PostMapping("/add")
     public String addTask(@ModelAttribute Task task, Model model) throws IOException {
-        try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + roomName + "/Generell.txt"))) {
-            out.write(task.getTitle() + System.lineSeparator());
-            out.write(task.getDeadline() + System.lineSeparator());
-            out.write(task.getInfo() + System.lineSeparator());
+        try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + roomName + "/Generell.txt"), StandardOpenOption.APPEND)) {
+            out.append(task.getTitle() + System.lineSeparator());
+            out.append(task.getDeadline() + System.lineSeparator());
+            out.append(task.getInfo() + System.lineSeparator());
         }
 
-        return "Structure";
+        return "Login";
     }
 
     @PostMapping("/room")
@@ -55,12 +56,8 @@ public class Controller {
 
     @PostMapping("/rooms")
     public String rooms(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-        if (!Files.isDirectory(Path.of("rooms/" + user.getRoomname()))) {
-            Files.createDirectory(Path.of("rooms/" + user.getRoomname()));
-        }
-        if (!Files.exists(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"))) {
-            Files.createFile(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"));
-        }
+        if (!Files.isDirectory(Path.of("rooms/" + user.getRoomname()))) Files.createDirectory(Path.of("rooms/" + user.getRoomname()));
+        if (!Files.exists(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"))) Files.createFile(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"));
         Files.createFile(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"));
 
         try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt")); BufferedReader in = Files.newBufferedReader(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"))) {
