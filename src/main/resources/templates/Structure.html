@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="htpps://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="${roomName}"></title>
@@ -19,15 +19,13 @@
 
 
 <div>
-    <tr th:each="homework: ${information}">
+    <tr th:each="homework: ${tasks}">
 
         <div  style="display: flex; flex-flow: row nowrap">
 
-            <td th:each="Info:${homework}">
-
-                <div th:text="${Info}" style="padding-left: 10px"></div>
-
-            </td>
+            <div th:text="${homework.getTitle}"></div>
+            <div th:text="${homework.getDeadline}"></div>
+            <div th:text="${homework.getInfo}"></div>
 
         </div>
 

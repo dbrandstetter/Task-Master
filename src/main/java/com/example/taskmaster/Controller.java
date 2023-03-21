@@ -19,13 +19,16 @@ public class Controller {
 
     @PostMapping("/room")
     public String userRegister(@ModelAttribute UserHandler user, Model model) throws IOException {
-
-
         model.addAttribute("roomName",user.getRoomname());
         model.addAttribute("username",user.getUsername());
 
-        model.addAttribute("information",FileReader.getTasks(user));
+        model.addAttribute("tasks",FileReader.getTasks(user));
 
-        return "Structure";
+        if (user.getPassword().equals(FileReader.getFirstRow(user)[0])) {
+            return "Structure";
+        } else {
+            model.addAttribute("information","That is the worng pwd!");
+            return "Login";
+        }
     }
 }
