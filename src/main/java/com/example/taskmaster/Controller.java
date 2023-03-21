@@ -25,18 +25,7 @@ public class Controller {
         model.addAttribute("username",user.getUsername());
 
         model.addAttribute("information",FileReader.getTasks(user));
-        System.out.println(model.getAttribute("information"));
 
-        if (user.getPassword().equals(FileReader.getFirstRow(user)[0])){
-
-            return "Structure";
-
-        }else {
-
-            model.addAttribute("wrongpwd","That is the wrong password!");
-            return "Login";
-
-        }
-
+        return "Structure";
     }
 }
