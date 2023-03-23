@@ -28,7 +28,7 @@ public class Controller {
     public String signup() {
         return "SignUp";
     }
-
+/**
     @PostMapping("/add")
     public String addTask(@ModelAttribute Task task, Model model) throws IOException {
         try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + roomName + "/Generell.txt"), StandardOpenOption.APPEND)) {
@@ -37,8 +37,9 @@ public class Controller {
             out.append(task.getInfo() + System.lineSeparator());
         }
 
-        return "Login";
+        return "Structure";
     }
+ **/
 
     @PostMapping("/room")
     public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
@@ -54,21 +55,8 @@ public class Controller {
         }
     }
 
-    @PostMapping("/rooms")
-    public String rooms(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-        if (!Files.isDirectory(Path.of("rooms/" + user.getRoomname()))) Files.createDirectory(Path.of("rooms/" + user.getRoomname()));
-        if (!Files.exists(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"))) Files.createFile(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"));
-        Files.createFile(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"));
-
-        try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt")); BufferedReader in = Files.newBufferedReader(Path.of("rooms/" + user.getRoomname() + "/Generell.txt"))) {
-            out.write(PasswordEncryptor.encrypt(user.getPassword()) + ";" + user.getPermission() + System.lineSeparator());
-            String line;
-            while ((line = in.readLine()) != null) {
-                out.write(line + System.lineSeparator());
-            }
-
-        }
-
-        return room(user, model);
+    @PostMapping("/Login")
+    public String backtoLogin() {
+        return "Login";
     }
 }
