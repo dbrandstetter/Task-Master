@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 @org.springframework.stereotype.Controller
 public class Controller {
+    //TODO sucht dir einen von den Bannern aus (banner.txt/banner2.txt)
 
     @GetMapping("/login")
     public String login() {

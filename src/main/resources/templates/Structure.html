@@ -16,12 +16,16 @@
             padding-right: 15px;
         }
 
+        #container {
+            position: absolute;
+            top: 95%;
+        }
+
     </style>
 </head>
 <body>
 
 <p>Welcome back <span th:text="${username}"></span>!</p>
-
 
 <div>
     <tr th:each="homework: ${tasks}">
@@ -36,8 +40,26 @@
 
     </tr>
 </div>
+<div id="container">
+    <form action="/Room" method="post">
 
-<form></form>
+        <label for="Title">Title:</label>
+        <input name="Title" id="Title" type="text" required>
+
+        <label for="DeadLine">DeadLine:</label>
+        <input name="Deadline" id="DeadLine" type="text" required>
+
+        <label for="Info">Info:</label>
+        <input name="Info" id="Info" type="text" required>
+
+        <button type="submit"
+                style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">
+            Submit
+        </button>
+
+
+    </form>
+</div>
 
 </body>
 </html>
