@@ -1,19 +1,12 @@
 package com.example.taskmaster;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -30,28 +23,36 @@ public class Controller {
 
     @PostMapping("/room")
     public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-        if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
-            model.addAttribute("roomName", user.getRoomname());
-            model.addAttribute("username", user.getUsername());
+        if (Files.exists(Path.of("rooms/" + user.getRoomname()+"/"+user.getUsername()+".txt"))) {
+            if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
+                model.addAttribute("roomName", user.getRoomname());
+                model.addAttribute("username", user.getUsername());
 
-            model.addAttribute("tasks", FileReader.getTasks(user));
+                model.addAttribute("tasks", FileReader.getTasks(user));
 
-            return "Structure";
-        } else {
-            model.addAttribute("wrongpwd", "That is the wrong pwd!");
+                return "Structure";
+            }else {
+                model.addAttribute("wronglogin", "Login data is not valid!");
+                return "Login";
+            }
+        }else {
+            model.addAttribute("wronglogin", "Login data is not valid!");
             return "Login";
         }
     }
 
     @PostMapping("/Login")
-    public String backtoLogin(@ModelAttribute UserHandler user) throws IOException, NoSuchAlgorithmException {
-
-        CreateUser.createRoom(user);
-        if (CreateUser.createUserData(user) == false) {
-            throw new IOException("Den User gibt es schon");
+    public String backtoLogin(@ModelAttribute UserHandler user,Model model) throws IOException, NoSuchAlgorithmException {
+        if (Files.exists(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"))) {
+            model.addAttribute("wrongsignup","This User already exists!");
+            return "SignUp";
+        } else {
+            CreateUser.createRoom(user);
+            if (CreateUser.createUserData(user) == false) {
+                System.out.println("Es wurde eine IO-Exception geworfen");
+                throw new IOException("Den User gibt es schon");
+            }
+            return "Login";
         }
-        CreateUser.createUserData(user);
-
-        return "Login";
     }
 }
