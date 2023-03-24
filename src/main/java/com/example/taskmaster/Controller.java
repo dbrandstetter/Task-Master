@@ -55,4 +55,20 @@ public class Controller {
             return "Login";
         }
     }
+
+    @PostMapping("/Room")
+    public String addTask(Task task) {
+        //TODO Da kommt eine add Methode hinein
+        /*
+            Sie soll einfach allen die in dem Raum chillen, die Aufgabe hineinschreiben
+
+            Formatierung:
+
+            Mathe-HÜ
+            21.02.2023
+            Buch S.125/1,2,3
+
+         */
+        return "Structure";
+    }
 }
