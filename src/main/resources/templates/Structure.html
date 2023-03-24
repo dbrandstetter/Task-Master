@@ -6,9 +6,14 @@
 
     <style>
 
-        div {
+        #wrapper {
             display: flex;
             flex-flow: column nowrap;
+            justify-content: space-between;
+            background-color: #8ba4a4;
+            border-radius: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
         }
 
     </style>
@@ -21,12 +26,12 @@
 <div>
     <tr th:each="homework: ${tasks}">
 
-        <div style="display: flex; flex-flow: row nowrap">
-
-            <div th:text="${homework.getTitle}"></div>
-            <div th:text="${homework.getDeadline}"></div>
-            <div th:text="${homework.getInfo}"></div>
-            <div></div>
+        <div style="display: flex; flex-flow: row nowrap" id="wrapper">
+            <div>
+                <h1 th:text="${homework.getTitle}">Title</h1>
+                <p th:text="${homework.getInfo}" style="padding-left: 10px ">Info</p>
+            </div>
+            <h1 th:text="${homework.getDeadline}">Date</h1>
         </div>
 
     </tr>

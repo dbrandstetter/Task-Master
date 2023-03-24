@@ -17,7 +17,6 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    public static String roomName;
 
     @GetMapping("/login")
     public String login() {
@@ -28,35 +27,31 @@ public class Controller {
     public String signup() {
         return "SignUp";
     }
-/**
-    @PostMapping("/add")
-    public String addTask(@ModelAttribute Task task, Model model) throws IOException {
-        try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + roomName + "/Generell.txt"), StandardOpenOption.APPEND)) {
-            out.append(task.getTitle() + System.lineSeparator());
-            out.append(task.getDeadline() + System.lineSeparator());
-            out.append(task.getInfo() + System.lineSeparator());
-        }
-
-        return "Structure";
-    }
- **/
 
     @PostMapping("/room")
     public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
         if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
             model.addAttribute("roomName", user.getRoomname());
-            roomName = user.getRoomname();
             model.addAttribute("username", user.getUsername());
+
             model.addAttribute("tasks", FileReader.getTasks(user));
+
             return "Structure";
         } else {
-            model.addAttribute("wrongpwd", "That is the worng pwd!");
+            model.addAttribute("wrongpwd", "That is the wrong pwd!");
             return "Login";
         }
     }
 
     @PostMapping("/Login")
-    public String backtoLogin() {
+    public String backtoLogin(@ModelAttribute UserHandler user) throws IOException, NoSuchAlgorithmException {
+
+        CreateUser.createRoom(user);
+        if (CreateUser.createUserData(user) == false) {
+            throw new IOException("Den User gibt es schon");
+        }
+        CreateUser.createUserData(user);
+
         return "Login";
     }
 }

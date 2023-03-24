@@ -13,13 +13,10 @@ public class FileReader {
 
     public static List<Task> getTasks(UserHandler user) throws IOException {
         Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
-
         try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
             String line;
             in.readLine();
-
             while ((line = in.readLine()) != null) {
-                // Add a new Task to tasks that is filled with the title, deadline and info stored in the user file
                 tasks.add(new Task(line, in.readLine(), in.readLine()));
             }
         }
@@ -29,7 +26,6 @@ public class FileReader {
 
     public static String[] getFirstRow(UserHandler user) throws IOException {
         Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
-
         try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
             return reader.readLine().split(";");
         }
