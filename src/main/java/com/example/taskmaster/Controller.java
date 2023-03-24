@@ -48,7 +48,7 @@ public class Controller {
             return "SignUp";
         } else {
             CreateUser.createRoom(user);
-            if (CreateUser.createUserData(user) == false) {
+            if (!CreateUser.createUserData(user)) {
                 System.out.println("Es wurde eine IO-Exception geworfen");
                 throw new IOException("Den User gibt es schon");
             }
