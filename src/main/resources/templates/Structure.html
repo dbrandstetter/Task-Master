@@ -5,6 +5,10 @@
     <title th:text="${roomName}"></title>
 
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
 
         #wrapper {
             display: flex;
@@ -21,41 +25,81 @@
             top: 95%;
         }
 
+        ul {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+            background-color: #a7c5c5;
+            padding: 10px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        #usernameLetter {
+            background-color: #8ba4a4;
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 20px;
+            border-width: 0px;
+        }
+
+        #bigmama {
+            margin: 15px;
+        }
     </style>
 </head>
 <body>
 
-<p>Welcome back <span th:text="${username}"></span>!</p>
+<nav>
+    <ul>
+        <li>Welcome back <span th:text="${username}"></span>!</li>
+        <button th:text="${usernameLetter}" id="usernameLetter">A</button>
+    </ul>
+</nav>
 
-<div>
+<div id="bigmama">
     <tr th:each="homework: ${tasks}">
 
         <div style="display: flex; flex-flow: row nowrap" id="wrapper">
             <div>
-                <h1 th:text="${homework.getTitle}">Title</h1>
-                <p th:text="${homework.getInfo}" style="padding-left: 10px ">Info</p>
+                <h1 th:text="${homework.getTitle}">Mathe-HÜ</h1>
+                <p th:text="${homework.getInfo}">Buch S.125/1,2,3</p>
             </div>
-            <h1 th:text="${homework.getDeadline}">Date</h1>
+            <h1 th:text="${homework.getDeadline}">21.02.2023</h1>
         </div>
 
     </tr>
 </div>
 <div id="container">
-    <form action="/Room" method="post">
+    <form action="/Room" method="post" id="add">
 
-        <label for="Title">Title:</label>
-        <input name="Title" id="Title" type="text" required>
+        <div>
+            <label for="Title">Title:</label>
+            <input name="Title" id="Title" type="text" required>
+        </div>
 
-        <label for="DeadLine">DeadLine:</label>
-        <input name="Deadline" id="DeadLine" type="text" required>
+        <div>
+            <label for="DeadLine">DeadLine:</label>
+            <input name="Deadline" id="DeadLine" type="text" required>
+        </div>
 
-        <label for="Info">Info:</label>
-        <input name="Info" id="Info" type="text" required>
-
-        <button type="submit"
-                style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">
-            Submit
-        </button>
+        <div>
+            <label for="Info">Info:</label>
+            <input name="Info" id="Info" type="text" required>
+        </div>
+        <div>
+            <button type="submit"
+                    style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Submit
+            </button>
+        </div>
 
 
     </form>

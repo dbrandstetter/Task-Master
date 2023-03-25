@@ -28,6 +28,7 @@ public class Controller {
             if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
                 model.addAttribute("roomName", user.getRoomname());
                 model.addAttribute("username", user.getUsername());
+                model.addAttribute("usernameLetter", user.getUsername().charAt(0));
 
                 model.addAttribute("tasks", FileReader.getTasks(user));
 
