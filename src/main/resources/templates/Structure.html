@@ -58,6 +58,9 @@
             display: flex;
             flex-flow: row nowrap;
         }
+        .adds {
+            margin-right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -85,21 +88,21 @@
 <div id="container">
     <form action="/Room" method="post" id="add">
 
-        <div>
+        <div class="adds">
             <label for="Title">Title:</label>
             <input name="Title" id="Title" type="text" required>
         </div>
 
-        <div>
+        <div class="adds">
             <label for="DeadLine">DeadLine:</label>
             <input name="Deadline" id="DeadLine" type="text" required>
         </div>
 
-        <div>
+        <div class="adds">
             <label for="Info">Info:</label>
             <input name="Info" id="Info" type="text" required>
         </div>
-        <div>
+        <div class="adds">
             <button type="submit"
                     style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Submit
             </button>
