@@ -9,25 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
-    private static List<Task> tasks = new ArrayList<>();
+	private static List<Task> tasks = new ArrayList<>();
 
-    public static List<Task> getTasks(UserHandler user) throws IOException {
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
-        try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
-            String line;
-            in.readLine();
-            while ((line = in.readLine()) != null) {
-                tasks.add(new Task(line, in.readLine(), in.readLine()));
-            }
-        }
+	public static List<Task> getTasks(UserHandler user) throws IOException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
-        return tasks;
-    }
+		try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
+			String line;
+			in.readLine();
 
-    public static String[] getFirstRow(UserHandler user) throws IOException {
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
-        try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
-            return reader.readLine().split(";");
-        }
-    }
+			while ((line = in.readLine()) != null) {
+				tasks.add(new Task(line, in.readLine(), in.readLine()));
+			}
+		}
+
+		return tasks;
+	}
+
+	public static String[] getFirstRow(UserHandler user) throws IOException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+
+		try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
+			return reader.readLine().split(";");
+		}
+	}
 }
