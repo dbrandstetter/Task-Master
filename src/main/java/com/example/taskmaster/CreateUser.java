@@ -8,24 +8,33 @@ import java.security.NoSuchAlgorithmException;
 
 public class CreateUser {
 
-    public static void createRoom(UserHandler user) throws IOException {
-        if (!(Files.exists(Path.of("rooms/" + user.getRoomname())))) Files.createDirectory(Path.of("rooms/" + user.getRoomname()));
-    }
+	public static void createRoom(UserHandler user) throws IOException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname());
 
-    public static boolean createUserData(UserHandler user) throws IOException, NoSuchAlgorithmException {
-        if (!Files.exists(Path.of("rooms/"+user.getRoomname()+"/"+user.getUsername()+".txt"))) {
-            Files.createFile(Path.of("rooms/"+user.getRoomname()+"/"+user.getUsername()+".txt"));
-            writeUserData(user);
-            return true;
-        } else {
-            return false;
-        }
-    }
+		if (!(Files.exists(fileLocation))) {
+			Files.createDirectory(fileLocation);
+		}
+	}
 
-    private static void writeUserData(UserHandler user) throws IOException, NoSuchAlgorithmException {
-        try (BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/"+user.getRoomname()+"/"+user.getUsername()+".txt"))) {
-            out.write(PasswordEncryptor.encrypt(user.getPassword())+";"+user.getPermission());
-        }
-    }
+	public static boolean createUserData(UserHandler user) throws IOException, NoSuchAlgorithmException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+
+		if (!Files.exists(fileLocation)) {
+			Files.createFile(fileLocation);
+			writeUserData(user);
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private static void writeUserData(UserHandler user) throws IOException, NoSuchAlgorithmException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+
+		try (BufferedWriter out = Files.newBufferedWriter(fileLocation)) {
+			out.write(PasswordEncryptor.encrypt(user.getPassword()) + ";" + user.getPermission());
+		}
+	}
 
 }

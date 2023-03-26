@@ -1,7 +1,9 @@
 package com.example.taskmaster;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,57 +12,64 @@ import java.security.NoSuchAlgorithmException;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    //TODO sucht dir einen von den Bannern aus (banner.txt/banner2.txt)
 
-    @GetMapping("/login")
-    public String login() {
-        return "Login";
-    }
+	@GetMapping("/login")
+	public String login() {
+		return "Login";
+	}
 
-    @GetMapping("/signup")
-    public String signup() {
-        return "SignUp";
-    }
+	@GetMapping("/signup")
+	public String signup() {
+		return "SignUp";
+	}
 
-    @PostMapping("/room")
-    public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-        if (Files.exists(Path.of("rooms/" + user.getRoomname()+"/"+user.getUsername()+".txt"))) {
-            if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
-                model.addAttribute("roomName", user.getRoomname());
-                model.addAttribute("username", user.getUsername());
-                model.addAttribute("usernameLetter", user.getUsername().charAt(0));
+	@PostMapping("/room")
+	public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
-                model.addAttribute("tasks", FileReader.getTasks(user));
+		if (Files.exists(fileLocation)) {
+			if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
+				model.addAttribute("roomName", user.getRoomname());
+				model.addAttribute("username", user.getUsername());
+				model.addAttribute("usernameLetter", user.getUsername().charAt(0));
+				model.addAttribute("tasks", FileReader.getTasks(user));
 
-                return "Structure";
-            }else {
-                model.addAttribute("wronglogin", "Login data is not valid!");
-                return "Login";
-            }
-        }else {
-            model.addAttribute("wronglogin", "Login data is not valid!");
-            return "Login";
-        }
-    }
+				return "Structure";
+			} else {
+				model.addAttribute("wronglogin", "Login data is not valid!");
 
-    @PostMapping("/Login")
-    public String backtoLogin(@ModelAttribute UserHandler user,Model model) throws IOException, NoSuchAlgorithmException {
-        if (Files.exists(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"))) {
-            model.addAttribute("wrongsignup","This User already exists!");
-            return "SignUp";
-        } else {
-            CreateUser.createRoom(user);
-            if (!CreateUser.createUserData(user)) {
-                System.out.println("Es wurde eine IO-Exception geworfen");
-                throw new IOException("Den User gibt es schon");
-            }
-            return "Login";
-        }
-    }
+				return "Login";
+			}
+		} else {
+			model.addAttribute("wronglogin", "Login data is not valid!");
 
-    @PostMapping("/Room")
-    public String addTask(Task task) {
-        //TODO Da kommt eine add Methode hinein
+			return "Login";
+		}
+	}
+
+	@PostMapping("/Login")
+	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+
+		if (Files.exists(fileLocation)) {
+			model.addAttribute("wrongsignup", "This User already exists!");
+
+			return "SignUp";
+		} else {
+			CreateUser.createRoom(user);
+
+			if (!CreateUser.createUserData(user)) {
+				System.out.println("backToLogin(): An IOException got thrown.");
+				throw new IOException("This User already exists!");
+			}
+
+			return "Login";
+		}
+	}
+
+	@PostMapping("/Room")
+	public String addTask(Task task) {
+		//TODO Da kommt eine add Methode hinein
         /*
             Sie soll einfach allen die in dem Raum chillen, die Aufgabe hineinschreiben
 
@@ -71,6 +80,6 @@ public class Controller {
             Buch S.125/1,2,3
 
          */
-        return "Structure";
-    }
+		return "Structure";
+	}
 }
