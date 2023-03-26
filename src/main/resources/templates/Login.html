@@ -7,20 +7,25 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@100&display=swap');
+
         * {
             color: #1e2f2f;
             font-family: 'Noto Sans Gujarati', sans-serif;
+            /*box-sizing: border-box;*/
         }
+
         body {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-flow: column nowrap;
         }
+
         section {
             display: flex;
             flex-flow: column wrap;
         }
+
         input {
             background-color: #8ba4a4;
             border-width: 0;
@@ -50,7 +55,9 @@
         <label for="password">Password:</label>
         <input name="password" id="password" type="password" required>
 
-        <button type="submit" style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Login</button>
+        <button type="submit" style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">
+            Login
+        </button>
 
     </section>
 
@@ -58,7 +65,7 @@
 
 <form action="/signup" method="get">
 
-    <button type="submit" style="border-width: 0px;background-color: white;margin-top: 10px">Not registered yet?</button>
+    <button type="submit" style="border-width: 0;background-color: white;margin-top: 10px">Not registered yet?</button>
 
 </form>
 <p th:text="${wronglogin}"></p>
