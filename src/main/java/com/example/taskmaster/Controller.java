@@ -1,17 +1,37 @@
 package com.example.taskmaster;
 
+import org.apache.catalina.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 
 @org.springframework.stereotype.Controller
 public class Controller {
+
+	public static void writeToTxtFilesInFolder(String folderPath, String textToWrite) {
+		File folder = new File(folderPath);
+		File[] fileList = folder.listFiles();
+
+		for (File file : fileList) {
+			if (file.isFile() && file.getName().endsWith(".txt")) {
+				try {
+					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+					writer.newLine();
+					writer.write(textToWrite);
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	@GetMapping("/login")
 	public String login() {
