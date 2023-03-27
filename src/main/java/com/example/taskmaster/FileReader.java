@@ -33,4 +33,15 @@ public class FileReader {
 			return reader.readLine().split(";");
 		}
 	}
+
+	public static void addTask(Task task) {
+		System.out.println(task);
+		tasks.add(task);
+	}
+
+	public static String[] getFirstRowAdd(Path fileLocation) throws IOException {
+		try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
+			return reader.readLine().split(";");
+		}
+	}
 }

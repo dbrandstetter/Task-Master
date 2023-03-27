@@ -11,22 +11,67 @@
         * {
             color: #1e2f2f;
             font-family: 'Noto Sans Gujarati', sans-serif;
+            box-sizing: border-box;
         }
+
         body {
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-flow: column nowrap;
+            flex-direction: column;
         }
+
         section {
             display: flex;
-            flex-flow: column wrap;
+            flex-direction: column;
         }
-        input {
-            background-color: #8ba4a4;
-            border-width: 0;
+
+        .SignUpField {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column nowrap;
+            gap: 10px;
+        }
+        .signupItem {
+            position: relative;
+            width: 250px;
+        }
+        .signupItem input {
+            width: 100%;
+            padding: 10px;
+            border: rgba(30, 47, 47, 0.25) 1px solid;
+            background: white;
             border-radius: 5px;
-            margin-bottom: 5px;
+            outline: none;
+            color: #1e2f2f;
+            font-size: 1em;
+            transition: 0.5s;
+        }
+        .signupItem span {
+            position: absolute;
+            left: 0;
+            padding: 10px;
+            pointer-events: none;
+            font-size: 1em;
+            color: #1e2f2f;
+            text-transform: uppercase;
+        }
+        .signupItem input:valid ~ span,
+        .signupItem input:focus ~ span {
+            color: #1e2f2f;
+            transform: translateX(10px) translateY(-7px);
+            transition-duration: 0.5s;
+            background-color: white;
+            font-size: 0.65em;
+            padding: 0 10px;
+            border-left: 1px solid #1e2f2f;
+            border-right: 1px solid #1e2f2f;
+            letter-spacing: 0.2em;
+        }
+        .signupItem input:valid,
+        .signupItem input:focus {
+            border: 1px solid #1e2f2f;
         }
     </style>
 
@@ -41,23 +86,28 @@
 <form action="/Login" method="post">
 
     <section class="SignUpField">
+        <div class="signupItem">
+            <input id="roomname" name="roomname" required type="text">
+            <span>Room name</span>
+        </div>
+        <div class="signupItem">
+            <input id="username" name="username" required type="text">
+            <span>Username</span>
+        </div>
+        <div class="signupItem">
+            <input id="password" name="password" required type="password">
+            <span>Password</span>
 
-        <label for="roomname">Room-Name:</label>
-        <input name="roomname" id="roomname" type="text" required>
-
-        <label for="username">Username:</label>
-        <input name="username" id="username" type="text" required>
-
-        <label for="password">Password:</label>
-        <input name="password" id="password" type="password" required>
-
-        <label for="permission">Role:</label>
-        <select name="permission" id="permission">
+        </div>
+        <select id="permission" name="permission">
+            <option selected>Select role</option>
             <option>student</option>
             <option>teacher</option>
         </select>
 
-        <button type="submit" style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Sign up</button>
+        <button style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px" type="submit">
+            Sign up
+        </button>
 
     </section>
 
@@ -65,7 +115,8 @@
 
 <form action="/login" method="get">
 
-    <button type="submit" style="border-width: 0px;background-color: white;margin-top: 10px">Already registered?</button>
+    <button style="border-width: 0px;background-color: white;margin-top: 10px" type="submit">Already registered?
+    </button>
 
 </form>
 
