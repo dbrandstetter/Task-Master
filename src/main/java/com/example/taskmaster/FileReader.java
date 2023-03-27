@@ -26,6 +26,21 @@ public class FileReader {
 		return tasks;
 	}
 
+	public static List<Task> getTasks(String roomname, String username) throws IOException {
+		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
+
+		try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
+			String line;
+			in.readLine();
+
+			while ((line = in.readLine()) != null) {
+				tasks.add(new Task(line, in.readLine(), in.readLine()));
+			}
+		}
+
+		return tasks;
+	}
+
 	public static String[] getFirstRow(UserHandler user) throws IOException {
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 

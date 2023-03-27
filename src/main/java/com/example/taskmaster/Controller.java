@@ -1,19 +1,25 @@
 package com.example.taskmaster;
 
-import org.apache.catalina.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 
 @org.springframework.stereotype.Controller
 public class Controller {
+	private String roomname;
+	private String username;
+	private String permission;
 
 	public static void writeToTxtFilesInFolder(String folderPath, String textToWrite) {
 		File folder = new File(folderPath);
@@ -45,6 +51,7 @@ public class Controller {
 
 	@PostMapping("/room")
 	public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+		System.out.println("user in room (/room) = " + user);
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
@@ -53,6 +60,10 @@ public class Controller {
 				model.addAttribute("username", user.getUsername());
 				model.addAttribute("usernameLetter", user.getUsername().charAt(0));
 				model.addAttribute("tasks", FileReader.getTasks(user));
+				model.addAttribute("remove", false);
+
+				username = user.getUsername();
+				roomname = user.getRoomname();
 
 				return "Structure";
 			} else {
@@ -69,6 +80,7 @@ public class Controller {
 
 	@PostMapping("/Login")
 	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+		System.out.println("user in backToLogin (/Login) = " + user);
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
@@ -87,19 +99,27 @@ public class Controller {
 		}
 	}
 
-	@PostMapping("/Room")
-	public String addTask(Task task) {
-		//TODO Da kommt eine add Methode hinein
-        /*
-            Sie soll einfach allen die in dem Raum chillen, die Aufgabe hineinschreiben
+	@PostMapping("/update")
+	public String addTask(Task task, Model model) throws IOException {
+		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
 
-            Formatierung:
+		model.addAttribute("remove", true);
 
-            Mathe-HÜ
-            21.02.2023
-            Buch S.125/1,2,3
+		writeTask(task, fileLocation);
 
-         */
+		model.addAttribute("remove", false);
+		model.addAttribute("tasks", FileReader.getTasks(roomname, username));
+
 		return "Structure";
+	}
+
+	private void writeTask(Task task, Path fileLocation) {
+		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
+			out.write(task.getTitle() + System.lineSeparator());
+			out.write(task.getDeadline() + System.lineSeparator());
+			out.write(task.getInfo() + System.lineSeparator());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

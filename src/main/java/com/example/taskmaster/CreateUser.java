@@ -33,7 +33,7 @@ public class CreateUser {
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		try (BufferedWriter out = Files.newBufferedWriter(fileLocation)) {
-			out.write(PasswordEncryptor.encrypt(user.getPassword()) + ";" + user.getPermission());
+			out.write(PasswordEncryptor.encrypt(user.getPassword()) + ";" + user.getPermission() + System.lineSeparator());
 		}
 	}
 
