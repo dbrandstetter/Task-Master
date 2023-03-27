@@ -24,7 +24,7 @@
             padding-right: 15px;
         }
 
-        #container {
+        #taskAdder {
             position: absolute;
             top: 95%;
         }
@@ -55,7 +55,7 @@
             border-width: 0px;
         }
 
-        #bigmama {
+        #taskContainer {
             margin: 15px;
         }
         #add {
@@ -76,7 +76,7 @@
     </ul>
 </nav>
 
-<div id="bigmama">
+<div id="taskContainer">
     <tr th:each="homework: ${tasks}">
 
         <div style="display: flex; flex-flow: row nowrap" id="wrapper">
@@ -89,7 +89,7 @@
 
     </tr>
 </div>
-<div id="container">
+<div id="taskAdder">
     <form action="/Room" method="post" id="add">
 
         <div class="adds">
