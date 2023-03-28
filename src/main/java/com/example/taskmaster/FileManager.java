@@ -1,11 +1,13 @@
 package com.example.taskmaster;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,5 +80,18 @@ public class FileManager {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+
+	public static void writeTask(Task task, Path fileLocation) {
+
+		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
+			if (FileManager.countLines(String.valueOf(fileLocation)) == 1) out.write(System.lineSeparator() + task.getTitle() + System.lineSeparator());
+			else out.write(task.getTitle() + System.lineSeparator());
+			out.write(task.getDeadline() + System.lineSeparator());
+			out.write(task.getInfo() + System.lineSeparator());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

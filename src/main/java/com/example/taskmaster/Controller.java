@@ -17,27 +17,9 @@ import java.security.NoSuchAlgorithmException;
 
 @org.springframework.stereotype.Controller
 public class Controller {
+
 	private String roomname;
 	private String username;
-	private String permission;
-
-	public static void writeToTxtFilesInFolder(String folderPath, String textToWrite) {
-		File folder = new File(folderPath);
-		File[] fileList = folder.listFiles();
-
-		for (File file : fileList) {
-			if (file.isFile() && file.getName().endsWith(".txt")) {
-				try {
-					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-					writer.newLine();
-					writer.write(textToWrite);
-					writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 
 	@GetMapping("/login")
 	public String login() {
@@ -51,7 +33,7 @@ public class Controller {
 
 	@PostMapping("/room")
 	public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-		System.out.println("user in room (/room) = " + user);
+		CustomLogger.logCustomInfo(user.getUsername()+" just logged in!");
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
@@ -80,7 +62,7 @@ public class Controller {
 
 	@PostMapping("/Login")
 	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-		System.out.println("user in backToLogin (/Login) = " + user);
+		CustomLogger.logCustomInfo(user.getUsername()+ "just signed in!");
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
@@ -103,25 +85,11 @@ public class Controller {
 	@PostMapping("/update")
 	public String addTask(Task task, Model model) throws IOException {
 		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
-
-		writeTask(task, fileLocation);
+		FileManager.writeTask(task, fileLocation);
 		model.addAttribute("roomName", roomname);
 		model.addAttribute("username", username);
 		model.addAttribute("usernameLetter", username.charAt(0));
 		model.addAttribute("tasks", FileManager.getTasks(roomname, username));
-
 		return "Structure";
-	}
-
-	private void writeTask(Task task, Path fileLocation) {
-
-		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
-			if (FileManager.countLines(String.valueOf(fileLocation)) == 1) out.write(System.lineSeparator() + task.getTitle() + System.lineSeparator());
-			else out.write(task.getTitle() + System.lineSeparator());
-			out.write(task.getDeadline() + System.lineSeparator());
-			out.write(task.getInfo() + System.lineSeparator());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
