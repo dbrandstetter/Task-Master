@@ -22,12 +22,15 @@
             border-radius: 20px;
             padding-left: 15px;
             padding-right: 15px;
-            margin-bottom: 20px^;
+            margin-bottom: 20px ^;
         }
 
         #taskAdder {
             position: absolute;
             top: 95%;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
         }
 
         ul {
@@ -59,10 +62,7 @@
         #taskContainer {
             margin: 15px;
         }
-        #add {
-            display: flex;
-            flex-flow: row nowrap;
-        }
+
         .adds {
             margin-right: 20px;
         }
@@ -90,30 +90,27 @@
 
     </tr>
 </div>
-<div id="taskAdder">
-    <form action="/update" method="post" id="add">
+<form action="/update" method="post" id="taskAdder">
+    <div class="adds">
+        <label for="Title">Title:</label>
+        <input name="Title" id="Title" type="text" required>
+    </div>
 
-        <div class="adds">
-            <label for="Title">Title:</label>
-            <input name="Title" id="Title" type="text" required>
-        </div>
+    <div class="adds">
+        <label for="DeadLine">Deadline:</label>
+        <input name="Deadline" id="DeadLine" type="text" required>
+    </div>
 
-        <div class="adds">
-            <label for="DeadLine">Deadline:</label>
-            <input name="Deadline" id="DeadLine" type="text" required>
-        </div>
-
-        <div class="adds">
-            <label for="Info">Info:</label>
-            <input name="Info" id="Info" type="text" required>
-        </div>
-        <div class="adds">
-            <button type="submit"
-                    style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Submit
-            </button>
-        </div>
-    </form>
-</div>
+    <div class="adds">
+        <label for="Info">Info:</label>
+        <input name="Info" id="Info" type="text" required>
+    </div>
+    <div class="adds">
+        <button type="submit"
+                style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Submit
+        </button>
+    </div>
+</form>
 
 </body>
 </html>
