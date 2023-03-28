@@ -103,7 +103,6 @@ public class Controller {
 	@PostMapping("/update")
 	public String addTask(Task task, Model model) throws IOException {
 		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
-		System.out.println("task (in addTask)= " + task);
 
 		writeTask(task, fileLocation);
 		model.addAttribute("roomName", roomname);
@@ -115,7 +114,7 @@ public class Controller {
 	}
 
 	private void writeTask(Task task, Path fileLocation) {
-		System.out.println("task = " + task);
+
 		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
 			if (FileManager.countLines(String.valueOf(fileLocation)) == 1) out.write(System.lineSeparator() + task.getTitle() + System.lineSeparator());
 			else out.write(task.getTitle() + System.lineSeparator());

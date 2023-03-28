@@ -81,6 +81,9 @@
         .signupItem input:focus {
             border: 1px solid #1e2f2f;
         }
+        #wrong {
+            color: red;
+        }
     </style>
 
     <title>SignUp - TaskMaster</title>
@@ -128,7 +131,7 @@
 
 </form>
 
-<p th:text="${wrongsignup}"></p>
+<p th:text="${wrongsignup}"  id="wrong"></p>
 
 </body>
 </html>

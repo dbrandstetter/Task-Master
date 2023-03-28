@@ -81,6 +81,9 @@
         .loginItem input:focus {
             border: 1px solid #1e2f2f;
         }
+        #wrong {
+            color: red;
+        }
     </style>
 
     <title>Login - TaskMaster</title>
@@ -119,7 +122,7 @@
     <button style="border-width: 0;background-color: white;margin-top: 10px" type="submit" id="notRegisteredYet">Not registered yet?</button>
 
 </form>
-<p th:text="${wronglogin}"></p>
+<p th:text="${wronglogin}" id="wrong"></p>
 
 </body>
 </html>
