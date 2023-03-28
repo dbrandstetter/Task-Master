@@ -4,7 +4,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -56,11 +55,11 @@ public class Controller {
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
-			if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileReader.getFirstRow(user)[0])) {
+			if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileManager.getFirstRow(user)[0])) {
 				model.addAttribute("roomName", user.getRoomname());
 				model.addAttribute("username", user.getUsername());
 				model.addAttribute("usernameLetter", user.getUsername().charAt(0));
-				model.addAttribute("tasks", FileReader.getTasks(user));
+				model.addAttribute("tasks", FileManager.getTasks(user));
 				model.addAttribute("remove", false);
 
 				username = user.getUsername();
@@ -100,10 +99,6 @@ public class Controller {
 		}
 	}
 
-	@RequestMapping(value = "/add")
-	public String add() {
-		return "Login";
-	}
 
 	@PostMapping("/update")
 	public String addTask(Task task, Model model) throws IOException {
@@ -111,8 +106,10 @@ public class Controller {
 		System.out.println("task (in addTask)= " + task);
 
 		writeTask(task, fileLocation);
-
-		model.addAttribute("tasks", FileReader.getTasks(roomname, username));
+		model.addAttribute("roomName", roomname);
+		model.addAttribute("username", username);
+		model.addAttribute("usernameLetter", username.charAt(0));
+		model.addAttribute("tasks", FileManager.getTasks(roomname, username));
 
 		return "Structure";
 	}
@@ -120,7 +117,8 @@ public class Controller {
 	private void writeTask(Task task, Path fileLocation) {
 		System.out.println("task = " + task);
 		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
-			out.write(task.getTitle() + System.lineSeparator());
+			if (FileManager.countLines(String.valueOf(fileLocation)) == 1) out.write(System.lineSeparator() + task.getTitle() + System.lineSeparator());
+			else out.write(task.getTitle() + System.lineSeparator());
 			out.write(task.getDeadline() + System.lineSeparator());
 			out.write(task.getInfo() + System.lineSeparator());
 		} catch (IOException e) {

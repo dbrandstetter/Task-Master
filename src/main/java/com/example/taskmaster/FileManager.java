@@ -1,6 +1,7 @@
 package com.example.taskmaster;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -8,7 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileReader {
+public class FileManager {
 	private static List<Task> tasks = new ArrayList<>();
 
 	public static List<Task> getTasks(UserHandler user) throws IOException {
@@ -61,5 +62,21 @@ public class FileReader {
 		try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
 			return reader.readLine().split(";");
 		}
+	}
+
+	public static int countLines(String filename) {
+		int count = 0;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			while (reader.readLine() != null) {
+				if (!(reader.equals(""))) {
+					count++;
+				}
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
