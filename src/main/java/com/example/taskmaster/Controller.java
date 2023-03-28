@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -70,9 +71,9 @@ public class Controller {
 
 			return "SignUp";
 		} else {
-			CreateUser.createRoom(user);
+			FileManager.createRoom(user);
 
-			if (!CreateUser.createUserData(user)) {
+			if (!FileManager.createUserData(user)) {
 				System.out.println("backToLogin(): An IOException got thrown.");
 				throw new IOException("This User already exists!");
 			}
@@ -85,9 +86,13 @@ public class Controller {
 	@PostMapping("/update")
 	public String addTask(Task task, Model model) throws IOException {
 		CustomLogger.logCustomInfo(username + " just posted a new Task("+task.toString()+")!");
-		FileManager.deleteEmptyLines("rooms/" + roomname + "/" + username + ".txt");
-		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
-		FileManager.writeTask(task, fileLocation);
+		List<File> txtfiles = FileManager.findTxtFiles("rooms/"+roomname);
+		for (File tmp:txtfiles) {
+			FileManager.deleteEmptyLines(tmp.getPath());
+			FileManager.writeTask(task, Path.of(tmp.getPath()));
+		}
+		FileManager.deleteEmptyLines("rooms/" + roomname + "/general.rtf");
+		FileManager.writeTask(task,Path.of("rooms/" + roomname + "/general.rtf"));
 		model.addAttribute("roomName", roomname);
 		model.addAttribute("username", username);
 		model.addAttribute("usernameLetter", username.charAt(0));
