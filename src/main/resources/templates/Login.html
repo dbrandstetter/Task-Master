@@ -23,6 +23,17 @@
             display: flex;
             flex-direction: column;
         }
+        #submitButton {
+            width: 100%;
+            height: 40px;
+            font-size: 1.2em;
+        }
+        #notRegisteredYet {
+            font-size: 1em;
+        }
+        .stripe {
+            font-size: 1.3em;
+        }
         .LoginField {
             display: flex;
             align-items: center;
@@ -42,7 +53,7 @@
             border-radius: 5px;
             outline: none;
             color: #1e2f2f;
-            font-size: 1em;
+            font-size: 1.2em;
             transition: 0.5s;
         }
         .loginItem span {
@@ -50,7 +61,7 @@
             left: 0;
             padding: 10px;
             pointer-events: none;
-            font-size: 1em;
+            font-size: 1.2em;
             color: #1e2f2f;
             text-transform: uppercase;
         }
@@ -97,7 +108,7 @@
             <span>Password</span>
         </div>
 
-        <button style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px" type="submit">
+        <button style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px" type="submit" id="submitButton">
             Login
         </button>
     </section>
@@ -105,7 +116,7 @@
 
 <form action="/signup" method="get">
 
-    <button style="border-width: 0;background-color: white;margin-top: 10px" type="submit">Not registered yet?</button>
+    <button style="border-width: 0;background-color: white;margin-top: 10px" type="submit" id="notRegisteredYet">Not registered yet?</button>
 
 </form>
 <p th:text="${wronglogin}"></p>

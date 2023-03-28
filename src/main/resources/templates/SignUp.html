@@ -13,19 +13,24 @@
             font-family: 'Noto Sans Gujarati', sans-serif;
             box-sizing: border-box;
         }
-
         body {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
         }
-
         section {
             display: flex;
             flex-direction: column;
         }
-
+        #submitButton {
+            width: 100%;
+            height: 40px;
+            font-size: 1.2em;
+        }
+        #permission {
+            width: 100%;
+        }
         .SignUpField {
             display: flex;
             align-items: center;
@@ -45,7 +50,7 @@
             border-radius: 5px;
             outline: none;
             color: #1e2f2f;
-            font-size: 1em;
+            font-size: 1.2em;
             transition: 0.5s;
         }
         .signupItem span {
@@ -53,9 +58,12 @@
             left: 0;
             padding: 10px;
             pointer-events: none;
-            font-size: 1em;
+            font-size: 1.2em;
             color: #1e2f2f;
             text-transform: uppercase;
+        }
+        .stripe {
+            font-size: 1.3em;
         }
         .signupItem input:valid ~ span,
         .signupItem input:focus ~ span {
@@ -105,7 +113,7 @@
             <option>teacher</option>
         </select>
 
-        <button style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px" type="submit">
+        <button style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px" type="submit" id="submitButton">
             Sign up
         </button>
 
