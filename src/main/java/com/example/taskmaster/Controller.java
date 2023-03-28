@@ -62,7 +62,7 @@ public class Controller {
 
 	@PostMapping("/Login")
 	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-		CustomLogger.logCustomInfo(user.getUsername()+ "just signed in!");
+		CustomLogger.logCustomInfo(user.getUsername()+ "just signed up!");
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
