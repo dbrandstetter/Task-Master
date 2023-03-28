@@ -4,6 +4,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -97,6 +98,11 @@ public class Controller {
 
 			return "Login";
 		}
+	}
+
+	@RequestMapping(value = "/add")
+	public String add() {
+		return "Login";
 	}
 
 	@PostMapping("/update")
