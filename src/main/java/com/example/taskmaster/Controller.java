@@ -62,7 +62,7 @@ public class Controller {
 
 	@PostMapping("/Login")
 	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-		CustomLogger.logCustomInfo(user.getUsername()+ "just signed up!");
+		CustomLogger.logCustomInfo(user.getUsername()+ " just signed up!");
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		if (Files.exists(fileLocation)) {
@@ -84,6 +84,7 @@ public class Controller {
 
 	@PostMapping("/update")
 	public String addTask(Task task, Model model) throws IOException {
+		CustomLogger.logCustomInfo(username + " just posted a new Task!");
 		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
 		FileManager.writeTask(task, fileLocation);
 		model.addAttribute("roomName", roomname);
