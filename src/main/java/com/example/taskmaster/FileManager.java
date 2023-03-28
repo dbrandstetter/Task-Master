@@ -1,9 +1,6 @@
 package com.example.taskmaster;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -82,7 +79,6 @@ public class FileManager {
 		return count;
 	}
 
-
 	public static void writeTask(Task task, Path fileLocation) {
 
 		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
@@ -93,5 +89,6 @@ public class FileManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+    }
+
 }
