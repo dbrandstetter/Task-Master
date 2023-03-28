@@ -12,6 +12,8 @@ public class FileReader {
 	private static List<Task> tasks = new ArrayList<>();
 
 	public static List<Task> getTasks(UserHandler user) throws IOException {
+		tasks.clear();
+
 		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
 
 		try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
