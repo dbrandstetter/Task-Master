@@ -84,7 +84,8 @@ public class Controller {
 
 	@PostMapping("/update")
 	public String addTask(Task task, Model model) throws IOException {
-		CustomLogger.logCustomInfo(username + " just posted a new Task!");
+		CustomLogger.logCustomInfo(username + " just posted a new Task("+task.toString()+")!");
+		FileManager.deleteEmptyLines("rooms/" + roomname + "/" + username + ".txt");
 		Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
 		FileManager.writeTask(task, fileLocation);
 		model.addAttribute("roomName", roomname);

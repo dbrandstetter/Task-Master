@@ -82,13 +82,41 @@ public class FileManager {
 	public static void writeTask(Task task, Path fileLocation) {
 
 		try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
-			if (FileManager.countLines(String.valueOf(fileLocation)) == 1) out.write(System.lineSeparator() + task.getTitle() + System.lineSeparator());
-			else out.write(task.getTitle() + System.lineSeparator());
+			out.write(task.getTitle() + System.lineSeparator());
 			out.write(task.getDeadline() + System.lineSeparator());
 			out.write(task.getInfo() + System.lineSeparator());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
     }
+
+	public static void deleteEmptyLines(String fileName) {
+		try {
+			File inputFile = new File(fileName);
+			File tempFile = new File("temp.txt");
+
+			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+			String currentLine;
+
+			while ((currentLine = reader.readLine()) != null) {
+				if (!currentLine.trim().equals("")) {
+					writer.write(currentLine);
+					writer.newLine();
+				}
+			}
+
+			writer.close();
+			reader.close();
+
+			boolean successful = tempFile.renameTo(inputFile);
+			if (!successful) {
+				throw new IOException("Could not rename " + tempFile.getAbsolutePath() + " to " + inputFile.getAbsolutePath());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
