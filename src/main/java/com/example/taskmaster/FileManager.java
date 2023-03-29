@@ -54,7 +54,8 @@ public class FileManager {
         Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
         if (!Files.exists(fileLocation)) {
-            Files.createFile(fileLocation);
+            Files.createFile(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task"));
+            Files.createFile(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".todo"));
             writeUserData(user);
             CopyToNewUser(user);
             return true;

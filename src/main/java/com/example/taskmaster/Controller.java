@@ -96,6 +96,7 @@ public class Controller {
         model.addAttribute("username", username);
         model.addAttribute("usernameLetter", username.charAt(0));
         model.addAttribute("tasks", TaskManager.getTasks(roomname, username));
+        model.addAttribute("todos",TodoManager.getTodos(roomname,username));
         return "Structure";
     }
 
@@ -109,6 +110,7 @@ public class Controller {
         model.addAttribute("username", username);
         model.addAttribute("usernameLetter", username.charAt(0));
         model.addAttribute("todos", TodoManager.getTodos(roomname, username));
+        model.addAttribute("tasks",TaskManager.getTasks(roomname,username));
         return "Structure";
     }
 }

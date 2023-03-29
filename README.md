@@ -24,8 +24,8 @@ To use, go to www.david-brandstetter.com (temporary uri), create an account and 
 👤 **David Brandstetter, Erik Weidenauer**
 
 * Website: www.david-brandstetter.com
-* Twitter: [@dbrandstetter\_](https://twitter.com/dbrandstetter\_)
 * Github: [@dbrandstetter](https://github.com/dbrandstetter)
+* Github: [@dbrandstetter](https://github.com/WeidenauerErik)
 * LinkedIn: [@David Brandstetter](https://linkedin.com/in/david-brandstetter-it)
 
 ## Description

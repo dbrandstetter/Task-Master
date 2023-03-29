@@ -21,7 +21,6 @@ public class TodoManager {
 
         try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
             String line;
-            in.readLine();
 
             while ((line = in.readLine()) != null) {
                 todos.add(new Todo(line, in.readLine(), in.readLine()));
@@ -38,7 +37,6 @@ public class TodoManager {
 
         try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
             String line;
-            in.readLine();
 
             while ((line = in.readLine()) != null) {
                 todos.add(new Todo(line, in.readLine(), in.readLine()));

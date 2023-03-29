@@ -12,25 +12,14 @@
             margin: 0;
             color: #1e2f2f;
             font-family: 'Noto Sans Gujarati', sans-serif;
+            box-sizing: border-box;
         }
 
-        #wrapper {
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: space-between;
-            background-color: #8ba4a4;
-            border-radius: 20px;
-            padding-left: 15px;
-            padding-right: 15px;
-            margin-bottom: 20px ^;
-        }
-
-        #taskAdder {
-            position: absolute;
-            top: 95%;
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
+        body {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            min-height: 100vh;
         }
 
         ul {
@@ -39,6 +28,20 @@
             justify-content: space-between;
             background-color: #a7c5c5;
             padding: 10px;
+        }
+
+        header {
+            grid-column: 1 / 11;
+            grid-row: 1 / 2;
+        }
+
+        footer {
+            display: flex;
+            grid-column: 1 / 11;
+            grid-row: 10 / 11;
+            align-items: center;
+            justify-content: center;
+            background-color: #8ba4a4;
         }
 
         li {
@@ -56,69 +59,150 @@
             border-radius: 50%;
             font-weight: bold;
             font-size: 20px;
-            border-width: 0px;
+        }
+
+        #task {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            background-color: #8ba4a4;
+            border-radius: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin: 10px;
+        }
+
+        #todo {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            background-color: #8ba4a4;
+            border-radius: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin: 10px;
+        }
+
+        #menu {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            grid-column: 1 / 3;
+            grid-row: 2 / 10;
+            background-color: beige;
         }
 
         #taskContainer {
+            grid-column: 3 / 11;
+            grid-row: 2 / 6;
             margin: 15px;
+            border: 2px #1e2f2f solid;
+            max-height: 300px;
+            overflow: scroll;
+            scrollbar-width: none;
         }
 
-        .adds {
+        #todoContainer {
+            grid-column: 3 / 11;
+            grid-row: 6 / 10;
+            margin: 15px;
+            border: 2px #1e2f2f solid;
+            overflow: scroll;
+            scrollbar-width: none;
+            max-height: 300px;
+        }
+
+        #todoAdder,
+        #taskAdder {
+            width: 100%;
+        }
+        .submitButton {
+            border-radius: 5px;
+            border-width: 0;
+            background-color: #8ba4a4;
+            margin-top: 10px;
+        }
+
+        .item {
             margin-right: 20px;
         }
     </style>
 </head>
 <body>
 
-<nav>
+<header id="header">
     <ul>
         <li>Welcome back <span th:text="${username}"></span>!</li>
         <button th:text="${usernameLetter}" id="usernameLetter">A</button>
     </ul>
-</nav>
-
+</header>
 <div id="taskContainer">
     <tr th:each="homework: ${tasks}">
-
-        <div style="display: flex; flex-flow: row nowrap" id="wrapper">
+        <div style="display: flex; flex-flow: row nowrap" id="task">
             <div>
                 <h1 th:text="${homework.getTitle}">Mathe-HÜ</h1>
                 <p th:text="${homework.getInfo}">Buch S.125/1,2,3</p>
             </div>
             <h1 th:text="${homework.getDeadline}">21.02.2023</h1>
         </div>
-
     </tr>
 </div>
-<form action="/update-after-addTask" method="post" id="taskAdder">
-    <div class="adds">
-        <label for="Title">Title:</label>
-        <input name="Title" id="Title" type="text" required>
-    </div>
-
-
-
-
-
-
-
-
-
-    <div class="adds">
-        <label for="DeadLine">Deadline:</label>
-        <input name="Deadline" id="DeadLine" type="date" required>
-    </div>
-
-    <div class="adds">
-        <label for="Info">Info:</label>
-        <input name="Info" id="Info" type="text" required>
-    </div>
-    <div class="adds">
-        <button type="submit"
-                style="border-radius: 5px;border-width: 0;background-color: #8ba4a4; margin-top: 10px">Submit
-        </button>
-    </div>
-</form>
-
+<div id="todoContainer">
+    <tr th:each="todoItem: ${todos}">
+        <div style="display: flex; flex-flow: row nowrap" id="todo">
+            <div>
+                <h1 th:text="${todoItem.getTitle}">Mathe-HÜ</h1>
+                <p th:text="${todoItem.getInfo}">Buch S.125/1,2,3</p>
+            </div>
+            <h1 th:text="${todoItem.getDeadline}">21.02.2023</h1>
+        </div>
+    </tr>
+</div>
+<section id="menu">
+    <form id="taskAdder" action="/update-after-addTask" method="post">
+        <div class="item">
+            <label for="taskTitle">Title:</label>
+            <input name="Title" id="taskTitle" type="text" required>
+        </div>
+        <div class="item">
+            <label for="taskDeadline">Deadline:</label>
+            <input name="Deadline" id="taskDeadline" type="date" required>
+        </div>
+        <div class="item">
+            <label for="taskInfo">Info:</label>
+            <input name="Info" id="taskInfo" type="text" required>
+        </div>
+        <div class="item">
+            <button type="submit" class="submitButton">
+                Submit
+            </button>
+        </div>
+    </form>
+    <form id="todoAdder" action="/update-after-addTodo" method="post">
+        <div class="item">
+            <label for="taskTitle">Title:</label>
+            <input name="Title" id="todoTitle" type="text" required>
+        </div>
+        <div class="item">
+            <label for="taskDeadline">Deadline:</label>
+            <input name="Deadline" id="todoDeadline" type="date" required>
+        </div>
+        <div class="item">
+            <label for="taskInfo">Info:</label>
+            <input name="Info" id="todoInfo" type="text" required>
+        </div>
+        <div class="item">
+            <button type="submit" class="submitButton">
+                Submit
+            </button>
+        </div>
+    </form>
+</section>
+<footer>
+    <p>this is a footer</p>
+</footer>
 </body>
 </html>
