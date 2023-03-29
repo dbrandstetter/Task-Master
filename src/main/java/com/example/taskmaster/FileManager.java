@@ -10,41 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
-    private static List<Task> tasks = new ArrayList<>();
-
-    public static List<Task> getTasks(UserHandler user) throws IOException {
-        tasks.clear();
-
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
-
-        try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
-            String line;
-            in.readLine();
-
-            while ((line = in.readLine()) != null) {
-                tasks.add(new Task(line, in.readLine(), in.readLine()));
-            }
-        }
-
-        return tasks;
-    }
-
-    public static List<Task> getTasks(String roomname, String username) throws IOException {
-        tasks.clear();
-
-        Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".task");
-
-        try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
-            String line;
-            in.readLine();
-
-            while ((line = in.readLine()) != null) {
-                tasks.add(new Task(line, in.readLine(), in.readLine()));
-            }
-        }
-
-        return tasks;
-    }
 
     public static String[] getFirstRow(UserHandler user) throws IOException {
         Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
@@ -52,10 +17,6 @@ public class FileManager {
         try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
             return reader.readLine().split(";");
         }
-    }
-
-    public static void addTask(Task task) {
-        tasks.add(task);
     }
 
     public static String[] getFirstRowAdd(Path fileLocation) throws IOException {
@@ -107,16 +68,6 @@ public class FileManager {
 
         try (BufferedWriter out = Files.newBufferedWriter(fileLocation)) {
             out.write(PasswordEncryptor.encrypt(user.getPassword()) + ";" + user.getPermission() + System.lineSeparator());
-        }
-    }
-
-    public static void writeTask(Task task, Path fileLocation) {
-        try (BufferedWriter out = Files.newBufferedWriter(fileLocation, StandardCharsets.UTF_8, StandardOpenOption.APPEND)) {
-            out.write(task.getTitle() + System.lineSeparator());
-            out.write(task.getDeadline() + System.lineSeparator());
-            out.write(task.getInfo() + System.lineSeparator());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

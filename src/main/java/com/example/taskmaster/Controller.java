@@ -42,7 +42,7 @@ public class Controller {
 				model.addAttribute("roomName", user.getRoomname());
 				model.addAttribute("username", user.getUsername());
 				model.addAttribute("usernameLetter", user.getUsername().charAt(0));
-				model.addAttribute("tasks", FileManager.getTasks(user));
+				model.addAttribute("tasks", TaskManager.getTasks(user));
 				model.addAttribute("remove", false);
 
 				username = user.getUsername();
@@ -83,20 +83,20 @@ public class Controller {
 	}
 
 
-	@PostMapping("/update")
+	@PostMapping("/update-after-addTask")
 	public String addTask(Task task, Model model) throws IOException {
 		CustomLogger.logCustomInfo(username + " just posted a new Task("+task.toString()+")!");
 		List<File> txtfiles = FileManager.findTxtFiles("rooms/"+roomname);
 		for (File tmp:txtfiles) {
 			FileManager.deleteEmptyLines(tmp.getPath());
-			FileManager.writeTask(task, Path.of(tmp.getPath()));
+			TaskManager.writeTask(task, Path.of(tmp.getPath()));
 		}
 		FileManager.deleteEmptyLines("rooms/" + roomname + "/general.rtf");
-		FileManager.writeTask(task,Path.of("rooms/" + roomname + "/general.rtf"));
+		TaskManager.writeTask(task,Path.of("rooms/" + roomname + "/general.rtf"));
 		model.addAttribute("roomName", roomname);
 		model.addAttribute("username", username);
 		model.addAttribute("usernameLetter", username.charAt(0));
-		model.addAttribute("tasks", FileManager.getTasks(roomname, username));
+		model.addAttribute("tasks", TaskManager.getTasks(roomname, username));
 		return "Structure";
 	}
 }
