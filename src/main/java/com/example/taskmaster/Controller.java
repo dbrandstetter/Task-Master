@@ -35,7 +35,7 @@ public class Controller {
 	@PostMapping("/room")
 	public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
 		CustomLogger.logCustomInfo(user.getUsername()+" just logged in!");
-		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
 		if (Files.exists(fileLocation)) {
 			if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileManager.getFirstRow(user)[0])) {
@@ -64,7 +64,7 @@ public class Controller {
 	@PostMapping("/Login")
 	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
 		CustomLogger.logCustomInfo(user.getUsername()+ " just signed up!");
-		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
 		if (Files.exists(fileLocation)) {
 			model.addAttribute("wrongsignup", "This User already exists!");

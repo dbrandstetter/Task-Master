@@ -15,7 +15,7 @@ public class FileManager {
     public static List<Task> getTasks(UserHandler user) throws IOException {
         tasks.clear();
 
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
         try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
             String line;
@@ -32,7 +32,7 @@ public class FileManager {
     public static List<Task> getTasks(String roomname, String username) throws IOException {
         tasks.clear();
 
-        Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".txt");
+        Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".task");
 
         try (BufferedReader in = Files.newBufferedReader(fileLocation, StandardCharsets.UTF_8)) {
             String line;
@@ -47,7 +47,7 @@ public class FileManager {
     }
 
     public static String[] getFirstRow(UserHandler user) throws IOException {
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
         try (BufferedReader reader = Files.newBufferedReader(fileLocation)) {
             return reader.readLine().split(";");
@@ -90,7 +90,7 @@ public class FileManager {
     }
 
     public static boolean createUserData(UserHandler user) throws IOException, NoSuchAlgorithmException {
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
         if (!Files.exists(fileLocation)) {
             Files.createFile(fileLocation);
@@ -103,7 +103,7 @@ public class FileManager {
     }
 
     private static void writeUserData(UserHandler user) throws IOException, NoSuchAlgorithmException {
-        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
         try (BufferedWriter out = Files.newBufferedWriter(fileLocation)) {
             out.write(PasswordEncryptor.encrypt(user.getPassword()) + ";" + user.getPermission() + System.lineSeparator());
@@ -123,7 +123,7 @@ public class FileManager {
     public static void deleteEmptyLines(String fileName) {
         try {
             File inputFile = new File(fileName);
-            File tempFile = new File("temp.txt");
+            File tempFile = new File("temp.task");
 
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -155,7 +155,7 @@ public class FileManager {
         List<File> txtFiles = new ArrayList<>();
 
         for (File file : files) {
-            if (file.isFile() && file.getName().endsWith(".txt")) {
+            if (file.isFile() && file.getName().endsWith(".task")) {
                 txtFiles.add(file);
             }
         }
@@ -164,7 +164,7 @@ public class FileManager {
     }
 
     public static void CopyToNewUser(UserHandler user) throws IOException {
-        try (BufferedReader in = Files.newBufferedReader(Path.of("rooms/" + user.getRoomname() + "/general.rtf")); BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".txt"), StandardOpenOption.APPEND)) {
+        try (BufferedReader in = Files.newBufferedReader(Path.of("rooms/" + user.getRoomname() + "/general.rtf")); BufferedWriter out = Files.newBufferedWriter(Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task"), StandardOpenOption.APPEND)) {
             String line;
             while ((line = in.readLine()) != null) {
 
