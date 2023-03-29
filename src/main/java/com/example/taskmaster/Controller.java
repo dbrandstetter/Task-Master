@@ -100,7 +100,7 @@ public class Controller {
         if (TaskManager.getTasks(username,roomname).size() == 0) model.addAttribute("info_tasks","       There are no tasks todo!");
         else model.addAttribute("tasks", TaskManager.getTasks(username,roomname));
         if (TodoManager.getTodos(username,roomname).size() == 0) model.addAttribute("info_todos","       There are no tasks todo!");
-        else model.addAttribute("tasks", TodoManager.getTodos(username,roomname));
+        else model.addAttribute("todos", TodoManager.getTodos(username,roomname));
         return "Structure";
     }
 
@@ -116,7 +116,7 @@ public class Controller {
         if (TaskManager.getTasks(username,roomname).size() == 0) model.addAttribute("info_tasks","       There are no tasks todo!");
         else model.addAttribute("tasks", TaskManager.getTasks(username,roomname));
         if (TodoManager.getTodos(username,roomname).size() == 0) model.addAttribute("info_todos","       There are no tasks todo!");
-        else model.addAttribute("tasks", TodoManager.getTodos(username,roomname));
+        else model.addAttribute("todos", TodoManager.getTodos(username,roomname));
         return "Structure";
     }
 }

@@ -31,7 +31,7 @@ public class TaskManager {
         return tasks;
     }
 
-    public static List<Task> getTasks(String roomname, String username) throws IOException {
+    public static List<Task> getTasks(String username, String roomname) throws IOException {
         tasks.clear();
 
         Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".task");

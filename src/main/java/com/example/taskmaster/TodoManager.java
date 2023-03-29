@@ -30,7 +30,7 @@ public class TodoManager {
         return todos;
     }
 
-    public static List<Todo> getTodos(String roomname, String username) throws IOException {
+    public static List<Todo> getTodos(String username, String roomname) throws IOException {
         todos.clear();
 
         Path fileLocation = Path.of("rooms/" + roomname + "/" + username + ".todo");
