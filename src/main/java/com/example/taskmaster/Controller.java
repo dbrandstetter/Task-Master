@@ -19,84 +19,96 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-	private String roomname;
-	private String username;
+    private String roomname;
+    private String username;
 
-	@GetMapping("/login")
-	public String login() {
-		return "Login";
-	}
+    @GetMapping("/login")
+    public String login() {
+        return "Login";
+    }
 
-	@GetMapping("/signup")
-	public String signup() {
-		return "SignUp";
-	}
+    @GetMapping("/signup")
+    public String signup() {
+        return "SignUp";
+    }
 
-	@PostMapping("/room")
-	public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-		CustomLogger.logCustomInfo(user.getUsername()+" just logged in!");
-		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
+    @PostMapping("/room")
+    public String room(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+        CustomLogger.logCustomInfo(user.getUsername() + " just logged in!");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
-		if (Files.exists(fileLocation)) {
-			if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileManager.getFirstRow(user)[0])) {
-				model.addAttribute("roomName", user.getRoomname());
-				model.addAttribute("username", user.getUsername());
-				model.addAttribute("usernameLetter", user.getUsername().charAt(0));
-				model.addAttribute("tasks", TaskManager.getTasks(user));
-				model.addAttribute("remove", false);
+        if (Files.exists(fileLocation)) {
+            if (PasswordEncryptor.encrypt(user.getPassword()).equals(FileManager.getFirstRow(user)[0])) {
+                model.addAttribute("roomName", user.getRoomname());
+                model.addAttribute("username", user.getUsername());
+                model.addAttribute("usernameLetter", user.getUsername().charAt(0));
+                model.addAttribute("tasks", TaskManager.getTasks(user));
+                model.addAttribute("todos",TodoManager.getTodos(user));
 
-				username = user.getUsername();
-				roomname = user.getRoomname();
+                username = user.getUsername();
+                roomname = user.getRoomname();
 
-				return "Structure";
-			} else {
-				model.addAttribute("wronglogin", "Login data is not valid!");
+                return "Structure";
+            } else {
+                model.addAttribute("wronglogin", "Login data is not valid!");
 
-				return "Login";
-			}
-		} else {
-			model.addAttribute("wronglogin", "Login data is not valid!");
+                return "Login";
+            }
+        } else {
+            model.addAttribute("wronglogin", "Login data is not valid!");
 
-			return "Login";
-		}
-	}
+            return "Login";
+        }
+    }
 
-	@PostMapping("/Login")
-	public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
-		CustomLogger.logCustomInfo(user.getUsername()+ " just signed up!");
-		Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
+    @PostMapping("/Login")
+    public String backtoLogin(@ModelAttribute UserHandler user, Model model) throws IOException, NoSuchAlgorithmException {
+        CustomLogger.logCustomInfo(user.getUsername() + " just signed up!");
+        Path fileLocation = Path.of("rooms/" + user.getRoomname() + "/" + user.getUsername() + ".task");
 
-		if (Files.exists(fileLocation)) {
-			model.addAttribute("wrongsignup", "This User already exists!");
+        if (Files.exists(fileLocation)) {
+            model.addAttribute("wrongsignup", "This User already exists!");
 
-			return "SignUp";
-		} else {
-			FileManager.createRoom(user);
+            return "SignUp";
+        } else {
+            FileManager.createRoom(user);
 
-			if (!FileManager.createUserData(user)) {
-				System.out.println("backToLogin(): An IOException got thrown.");
-				throw new IOException("This User already exists!");
-			}
+            if (!FileManager.createUserData(user)) {
+                System.out.println("backToLogin(): An IOException got thrown.");
+                throw new IOException("This User already exists!");
+            }
 
-			return "Login";
-		}
-	}
+            return "Login";
+        }
+    }
 
+    @PostMapping("/update-after-addTask")
+    public String addTask(Task task, Model model) throws IOException {
+        CustomLogger.logCustomInfo(username + " just posted a new Task(" + task.toString() + ")!");
+        List<File> txtfiles = FileManager.findTxtFiles("rooms/" + roomname);
+        for (File tmp : txtfiles) {
+            FileManager.deleteEmptyLines(tmp.getPath());
+            TaskManager.writeTask(task, Path.of(tmp.getPath()));
+        }
+        FileManager.deleteEmptyLines("rooms/" + roomname + "/general.rtf");
+        TaskManager.writeTask(task, Path.of("rooms/" + roomname + "/general.rtf"));
+        model.addAttribute("roomName", roomname);
+        model.addAttribute("username", username);
+        model.addAttribute("usernameLetter", username.charAt(0));
+        model.addAttribute("tasks", TaskManager.getTasks(roomname, username));
+        return "Structure";
+    }
 
-	@PostMapping("/update-after-addTask")
-	public String addTask(Task task, Model model) throws IOException {
-		CustomLogger.logCustomInfo(username + " just posted a new Task("+task.toString()+")!");
-		List<File> txtfiles = FileManager.findTxtFiles("rooms/"+roomname);
-		for (File tmp:txtfiles) {
-			FileManager.deleteEmptyLines(tmp.getPath());
-			TaskManager.writeTask(task, Path.of(tmp.getPath()));
-		}
-		FileManager.deleteEmptyLines("rooms/" + roomname + "/general.rtf");
-		TaskManager.writeTask(task,Path.of("rooms/" + roomname + "/general.rtf"));
-		model.addAttribute("roomName", roomname);
-		model.addAttribute("username", username);
-		model.addAttribute("usernameLetter", username.charAt(0));
-		model.addAttribute("tasks", TaskManager.getTasks(roomname, username));
-		return "Structure";
-	}
+    @PostMapping("/update-after-addTodo")
+    public String addTodo(Todo todo, Model model) throws IOException {
+        CustomLogger.logCustomInfo(username + " just posted a new Todo(" + todo.toString() + ")!");
+        FileManager.deleteEmptyLines("rooms/" + roomname + "/"+username+".todo");
+        TodoManager.writeTodo(todo, Path.of("rooms/" + roomname + "/"+username+".todo"));
+
+        model.addAttribute("roomName", roomname);
+        model.addAttribute("username", username);
+        model.addAttribute("usernameLetter", username.charAt(0));
+        model.addAttribute("todos", TodoManager.getTodos(roomname, username));
+        return "Structure";
+    }
 }
