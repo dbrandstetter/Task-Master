@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@100&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    color: #1e2f2f;
+    font-family: 'Noto Sans Gujarati', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    min-height: 100vh;
+}
+
+ul {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    background-color: #637a7a;
+    padding: 10px;
+}
+
+header {
+    grid-column: 1 / 11;
+    grid-row: 1 / 2;
+}
+
+footer {
+    display: flex;
+    grid-column: 1 / 11;
+    grid-row: 11 / 11;
+    align-items: center;
+    justify-content: center;
+    background-color: #637a7a;
+    height: 50px;
+}
+
+li {
+    list-style-type: none;
+}
+
+#usernameLetter {
+    background-color: #8ba4a4;
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 50%;
+    border-width: 0px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#task {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    background-color: #8ba4a4;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 10px;
+}
+
+#todo {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    background-color: #8ba4a4;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 10px;
+}
+
+#menu {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    flex-grow: 1;
+    grid-column: 1 / 3;
+    grid-row: 2 / 10;
+    background-color: #a7c5c5;
+    border-radius: 20px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+#taskContainer {
+    grid-column: 3 / 11;
+    grid-row: 2 / 7;
+    margin: 15px;
+    background-color: #a7c5c5;
+    border-radius: 20px;
+    max-height: 300px;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+#todoContainer {
+    grid-column: 3 / 11;
+    grid-row: 7 / 11;
+    background-color: #a7c5c5;
+    margin: 15px;
+    border-radius: 20px;
+    overflow: scroll;
+    scrollbar-width: none;
+    max-height: 300px;
+}
+
+#todoAdder,
+#taskAdder {
+    width: 100%;
+}
+.submitButton {
+    border-radius: 5px;
+    border-width: 0;
+    background-color: #8ba4a4;
+    margin-top: 10px;
+}
+
+.item {
+    margin-right: 20px;
+}

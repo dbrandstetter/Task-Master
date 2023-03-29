@@ -3,140 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${roomName}"></title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@100&display=swap');
-
-        * {
-            padding: 0;
-            margin: 0;
-            color: #1e2f2f;
-            font-family: 'Noto Sans Gujarati', sans-serif;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-template-rows: repeat(10, 1fr);
-            min-height: 100vh;
-        }
-
-        ul {
-            display: flex;
-            flex-flow: row;
-            justify-content: space-between;
-            background-color: #a7c5c5;
-            padding: 10px;
-        }
-
-        header {
-            grid-column: 1 / 11;
-            grid-row: 1 / 2;
-        }
-
-        footer {
-            display: flex;
-            grid-column: 1 / 11;
-            grid-row: 10 / 11;
-            align-items: center;
-            justify-content: center;
-            background-color: #8ba4a4;
-        }
-
-        li {
-            list-style-type: none;
-        }
-
-        #usernameLetter {
-            background-color: #8ba4a4;
-            margin-right: 20px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        #task {
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: space-between;
-            background-color: #8ba4a4;
-            border-radius: 20px;
-            padding-left: 15px;
-            padding-right: 15px;
-            margin: 10px;
-        }
-
-        #todo {
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: space-between;
-            background-color: #8ba4a4;
-            border-radius: 20px;
-            padding-left: 15px;
-            padding-right: 15px;
-            margin: 10px;
-        }
-
-        #menu {
-            display: flex;
-            flex-flow: column wrap;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            flex-grow: 1;
-            grid-column: 1 / 3;
-            grid-row: 2 / 10;
-            background-color: beige;
-        }
-
-        #taskContainer {
-            grid-column: 3 / 11;
-            grid-row: 2 / 6;
-            margin: 15px;
-            border: 2px #1e2f2f solid;
-            max-height: 300px;
-            overflow: scroll;
-            scrollbar-width: none;
-        }
-
-        #todoContainer {
-            grid-column: 3 / 11;
-            grid-row: 6 / 10;
-            margin: 15px;
-            border: 2px #1e2f2f solid;
-            overflow: scroll;
-            scrollbar-width: none;
-            max-height: 300px;
-        }
-
-        #todoAdder,
-        #taskAdder {
-            width: 100%;
-        }
-        .submitButton {
-            border-radius: 5px;
-            border-width: 0;
-            background-color: #8ba4a4;
-            margin-top: 10px;
-        }
-
-        .item {
-            margin-right: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="Structure.css">
 </head>
 <body>
 
 <header id="header">
     <ul>
-        <li>Welcome back <span th:text="${username}"></span>!</li>
-        <button th:text="${usernameLetter}" id="usernameLetter">A</button>
+        <li>Welcome back <span th:text="${username}">Erik</span>!</li>
+        <button th:text="${usernameLetter}" id="usernameLetter">E</button>
     </ul>
 </header>
 <div id="taskContainer">
@@ -163,6 +37,7 @@
 </div>
 <section id="menu">
     <form id="taskAdder" action="/update-after-addTask" method="post">
+        <h1>new Task?</h1>
         <div class="item">
             <label for="taskTitle">Title:</label>
             <input name="Title" id="taskTitle" type="text" required>
@@ -182,6 +57,7 @@
         </div>
     </form>
     <form id="todoAdder" action="/update-after-addTodo" method="post">
+        <h1>new Todo?</h1>
         <div class="item">
             <label for="taskTitle">Title:</label>
             <input name="Title" id="todoTitle" type="text" required>
@@ -202,7 +78,7 @@
     </form>
 </section>
 <footer>
-    <p>this is a footer</p>
+    <p>created by Erik & David</p>
 </footer>
 </body>
 </html>
