@@ -25,7 +25,7 @@ To use, go to www.david-brandstetter.com (temporary uri), create an account and 
 
 * Website: www.david-brandstetter.com
 * Github: [@dbrandstetter](https://github.com/dbrandstetter)
-* Github: [@dbrandstetter](https://github.com/WeidenauerErik)
+* Github: [@WeidenauerErik](https://github.com/WeidenauerErik)
 * LinkedIn: [@David Brandstetter](https://linkedin.com/in/david-brandstetter-it)
 
 ## Description
