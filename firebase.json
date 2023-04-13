@@ -1,0 +1,67 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "*/.",
+      "*/node_modules/*"
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "src/main/resources/templates/Login.html",
+        "type": 301
+      },
+      {
+        "source": "/index.html",
+        "destination": "src/main/resources/templates/Login.html",
+        "type": 301
+      },
+      {
+        "source": "/signup",
+        "destination": "src/main/resources/templates/SignUp.html",
+        "type": 301
+      },
+      {
+        "source": "/SignUp",
+        "destination": "src/main/resources/templates/SignUp.html",
+        "type": 301
+      },
+      {
+        "source": "/SignUp.html",
+        "destination": "src/main/resources/templates/SignUp.html",
+        "type": 301
+      },
+      {
+        "source": "/login",
+        "destination": "src/main/resources/templates/Login.html",
+        "type": 301
+      },
+      {
+        "source": "/Login",
+        "destination": "src/main/resources/templates/Login.html",
+        "type": 301
+      },
+      {
+        "source": "/Login.html",
+        "destination": "src/main/resources/templates/Login.html",
+        "type": 301
+      },
+      {
+        "source": "/room",
+        "destination": "src/main/resources/templates/Structure.html",
+        "type": 301
+      },
+      {
+        "source": "/update-after-addTask",
+        "destination": "src/main/resources/templates/Structure.html",
+        "type": 301
+      },
+      {
+        "source": "/update-after-addTodo",
+        "destination": "src/main/resources/templates/Structure.html",
+        "type": 301
+      }
+    ]
+  }
+}
