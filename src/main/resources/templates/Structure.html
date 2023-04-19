@@ -273,7 +273,7 @@
     <form id="taskAdder" action="/update-after-addTask" method="post">
         <h1>Add new Task:</h1>
         <div class="addTaskItem">
-            <input name="Title" id="taskTitle" type="text" autofocus required>
+            <input name="Title" id="taskTitle" type="text" autofocus required th:enabled="${permission} == 'teacher'">
             <span>Title</span>
         </div>
         <div class="addTaskItem">

@@ -45,7 +45,7 @@ public class Controller {
                 if (TaskManager.getTasks(user).size() == 0) model.addAttribute("info_tasks","       There are no tasks todo!");
                 else model.addAttribute("tasks", TaskManager.getTasks(user));
                 if (TodoManager.getTodos(user).size() == 0) model.addAttribute("info_todos","       There are no tasks todo!");
-                else model.addAttribute("tasks", TodoManager.getTodos(user));
+                else model.addAttribute("todos", TodoManager.getTodos(user));
 
                 username = user.getUsername();
                 roomname = user.getRoomname();
