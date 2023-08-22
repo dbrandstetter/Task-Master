@@ -10,20 +10,12 @@
 </p>
 
 > This is TaskMaster, your aesthetic online Homework Organizer.
-
-### 🏠 [Project](https://www.david-brandstetter.com) <- click to view application
-
-## Usage
-
-```sh
-To use, go to www.david-brandstetter.com (temporary uri), create an account and organize your company and yourself.
-```
+> 
 
 ## Author
 
 👤 **David Brandstetter, Erik Weidenauer**
 
-* Website: www.david-brandstetter.com
 * Github: [@dbrandstetter](https://github.com/dbrandstetter)
 * Github: [@WeidenauerErik](https://github.com/WeidenauerErik)
 * LinkedIn: [@David Brandstetter](https://linkedin.com/in/david-brandstetter-it)
